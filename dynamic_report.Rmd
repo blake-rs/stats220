@@ -1,0 +1,75 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+* {
+  max-width: 90%;
+  margin: auto;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+.summary-stats {
+  background-color: #f8f9fa;
+  border-left: 5px solid #007bff;
+  padding: 15px;
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 1.2em;
+  display: block;
+}
+```
+
+## Dynamic report tracking social media usage across a range of apps
+
+Below are two bar chart graphs which show the usage of different social media apps and at what time during the days each apps were used:
+
+```{r}
+library(tidyverse)
+
+logged_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRuEykMTEFQJ8P9R9j2Arb2YN3pPgyImof6N472BuWganI87CWPLRiMtauG0skg5O4gm9NqSTAaxu8F/pub?gid=369620939&single=true&output=csv")
+
+latest_data <- logged_data %>%
+  rename(minutes_scrolling = 2,
+         platform = 3,
+         AM_PM = 4)
+
+# Summary values:
+max_scrolling_session <- max(latest_data$minutes_scrolling)
+mean_scrolling_session <- round(mean(latest_data$minutes_scrolling), 2)
+
+# Bar Charts:
+# Bar chart showing time spent on each platform
+
+ggplot(latest_data, aes(x = platform, y = minutes_scrolling, fill = platform)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total Time Spent per Platform",
+       x = "Social Media Platform",
+       y = "Total Minutes") +
+  theme_minimal()
+
+# Bar chart showing time of time scrolling occurs on the platforms
+
+ggplot(latest_data, aes(x = AM_PM, y = minutes_scrolling, fill = platform)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Scrolling Habits: Morning vs. Evening",
+       x = "Time of Day",
+       y = "Total Minutes",
+       fill = "Platform") +
+  theme_minimal()
+
+```
+<div class="summary-stats">
+The longest scrolling session logged was `r max_scrolling_session` minutes. <br>
+The mean scrolling session logged was `r mean_scrolling_session` minutes.
+</div>
+
+
