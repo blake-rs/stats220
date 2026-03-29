@@ -17,7 +17,7 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
   line-height: 1.6;
   padding: 20px;
 }
-.summary-stats {
+h3 {
   background-color: #f8f9fa;
   border-left: 5px solid #007bff;
   padding: 15px;
@@ -67,9 +67,10 @@ ggplot(latest_data, aes(x = AM_PM, y = minutes_scrolling, fill = platform)) +
   theme_minimal()
 
 ```
-<div class="summary-stats">
-The longest scrolling session logged was `r max_scrolling_session` minutes. <br>
-The mean scrolling session logged was `r mean_scrolling_session` minutes.
-</div>
+
+### The longest scrolling session logged was `r max_scrolling_session` minutes.
+
+### The mean scrolling session logged was `r mean_scrolling_session` minutes.
+
 
 
