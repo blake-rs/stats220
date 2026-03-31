@@ -49,17 +49,25 @@ mean_scrolling_session <- round(mean(latest_data$minutes_scrolling), 2)
 # Bar Charts:
 # Bar chart showing time spent on each platform
 
-ggplot(latest_data, aes(x = platform, y = minutes_scrolling, fill = platform)) +
-  geom_bar(stat = "identity") +
+# I have used stat = "identity" here which I learnt outside the course from an 
+# online forum so that I could show the y axis as total minutes instead of a 
+# count of observations
+
+ggplot(latest_data) +
+  geom_bar(stat = "identity", aes(x = platform, y = minutes_scrolling, fill = platform)) +
   labs(title = "Total Time Spent per Platform",
        x = "Social Media Platform",
-       y = "Total Minutes") +
+       y = "Total Minutes",
+       fill = "Platform") +
   theme_minimal()
 
 # Bar chart showing time of time scrolling occurs on the platforms
 
-ggplot(latest_data, aes(x = AM_PM, y = minutes_scrolling, fill = platform)) +
-  geom_bar(stat = "identity") +
+# I have used stat = "identity" here which I learnt outside the course from an 
+# online forum so that I could show the y axis as total minutes instead of a 
+# count of observations
+ggplot(latest_data) +
+  geom_bar(stat = "identity", aes(x = AM_PM, y = minutes_scrolling, fill = platform)) +
   labs(title = "Scrolling Habits: Morning vs. Evening",
        x = "Time of Day",
        y = "Total Minutes",
